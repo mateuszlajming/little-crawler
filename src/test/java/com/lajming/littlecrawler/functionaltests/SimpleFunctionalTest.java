@@ -4,14 +4,12 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
 import com.lajming.littlecrawler.crawler.Crawler;
-import com.lajming.littlecrawler.urlcontainer.CrawlResult;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
@@ -22,9 +20,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class SimpleFunctionalTest {
 
     private static final int PORT = 8089;
-
-    @Autowired
-    private ApplicationContext ctx;
 
     @Autowired
     private Crawler crawler;
@@ -52,14 +47,14 @@ public class SimpleFunctionalTest {
 
         // Act
         var startingUrl = String.format("http://localhost:%d/index.html", PORT);
-        CrawlResult crawl = crawler.crawl(startingUrl);
+        var crawlResult = crawler.crawl(startingUrl);
 
         // Assert
-        assertThat(crawl.getUrlToStaticContentMap().keySet())
+        assertThat(crawlResult.getUrlToStaticContentMap().keySet())
             .containsExactly(startingUrl);
-        assertThat(crawl.getUrlToStaticContentMap().get(startingUrl))
+        assertThat(crawlResult.getUrlToStaticContentMap().get(startingUrl))
             .containsExactly("http://images.com/logo.jpg");
-        assertThat(crawl.getExternalUrls())
+        assertThat(crawlResult.getExternalUrls())
             .containsExactly("https://facebook.com");
     }
 

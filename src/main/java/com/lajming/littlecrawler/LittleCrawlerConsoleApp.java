@@ -4,7 +4,6 @@ import com.github.rozidan.springboot.logger.EnableLogger;
 import com.lajming.littlecrawler.crawler.Crawler;
 import com.lajming.littlecrawler.inputparser.ArgsParser;
 import com.lajming.littlecrawler.resultconsumer.ResultConsumer;
-import com.lajming.littlecrawler.urlcontainer.CrawlResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,7 +30,7 @@ public class LittleCrawlerConsoleApp implements CommandLineRunner {
     private boolean testMode;
 
     public static void main(String[] args) {
-        runOnSpringBoot(args);
+        runWithSpringBoot(args);
     }
 
     @Override
@@ -41,12 +40,12 @@ public class LittleCrawlerConsoleApp implements CommandLineRunner {
         }
 
         var input = inputParser.parseInput();
-        CrawlResult result = crawler.crawl(input.getStartingUrl());
+        var result = crawler.crawl(input.getStartingUrl());
         resultConsumer.consumeResult(result);
         success();
     }
 
-    private static void runOnSpringBoot(String[] args) {
+    private static void runWithSpringBoot(String[] args) {
         var app = new SpringApplication(LittleCrawlerConsoleApp.class);
         app.setBannerMode(Banner.Mode.OFF);
         app.run(args);
