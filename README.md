@@ -2,7 +2,7 @@
 
 Simple crawler which visits pages within the provided domain.
 
-It generates custom site map which includes:
+It generates custom site map which contains:
 - links to pages within the provided domain
 - links to static content (e.g. images) for each respective page
 - links to external URLs
@@ -45,6 +45,7 @@ external-links:
   - output format
   - verbose mode
 - improve input validation
+- make sure that images with relative path are also processed
 - add more logging
 - add more tests
-- make sure that images with relative path are also processed
+- do refactoring
