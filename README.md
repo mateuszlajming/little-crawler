@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/mateuszlajming/little-crawler.svg?branch=master)](https://travis-ci.org/mateuszlajming/little-crawler)
+
 # little-crawler
 
 Simple crawler which visits pages within the provided domain.
